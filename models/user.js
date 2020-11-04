@@ -38,8 +38,8 @@ module.exports = class User extends Sequelize.Model{
     };
     
     static associate(db){
-        db.User.hasMany(db.Parcel,{foreignKey:"recipient", sourceKey:'id'})
-        db.User.belongsTo(db.Dormitory,{foreignKey: "dormitory", targetKey:'id'});
-        db.User.belongsTo(db.Room,{foreignKey:'room', targetKey: 'id'});
+        db.User.hasMany(db.Parcel)
+        db.User.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
+        db.User.belongsTo(db.Room, {foreignKey: 'room', targetKey: 'id'});
     }
 }

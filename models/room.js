@@ -1,12 +1,10 @@
 const Sequelize = require('sequelize');
+const { Dormitory } = require('.');
 
 module.exports = class Room extends Sequelize.Model{
     static init(sequelize){
         return super.init({
-            userId:{
-                type:Sequelize.INTEGER,
-                allowNull: true,
-            }
+
         },{
             sequelize,
             timestamps: true,
@@ -19,6 +17,7 @@ module.exports = class Room extends Sequelize.Model{
           })
     }
     static associate(db){
-        db.Room.hasMany(db.User,{foreignkey:"room",sourceKey: 'id'});
+        db.Room.hasMany(db.User, {foreignKey: 'room', sourceKey: 'id'});
+        db.Room.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
     }
 }
