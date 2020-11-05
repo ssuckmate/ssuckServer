@@ -1,6 +1,9 @@
 const express = require('express');
 const {sequelize} = require('./models');
 const morgan = require('morgan');
+const v1 = require('./routes/v1');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -13,10 +16,12 @@ sequelize.sync({force:true})
         console.error(err);
     })
 
-app.use(morgan)//로그
+app.use(morgan('dev'))//로그
 app.use(express.json());//json요청 처리.
 app.use(express.urlencoded({extended:false}));
 
+
+app.use('/v1',v1);
 
 app.use((req,res,next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
@@ -31,10 +36,3 @@ app.use((err,req,res,next)=> {
 app.listen(app.get('port'), () =>{
     console.log(app.get('port'),"번 포트에서 대기중");
 })
-
-
-
-
-
-//회원가입 - 디비 연결.. local kakao
-//로그인
