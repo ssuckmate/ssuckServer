@@ -13,7 +13,6 @@ const sequelize =new Sequelize(config.database, config.username, config.password
 db.sequelize = sequelize;
 
 db.User = User;
-console.info('@@@@@@@',User);
 db.Parcel = Parcel;
 db.Dormitory = Dormitory;
 db.Room = Room;
