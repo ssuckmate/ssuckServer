@@ -3,13 +3,13 @@ var app = express();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { User } = require('../models');
+const { User } = require('../../models');
 
 const secret = process.env.JWT || '13@@4d%sf!a'
 
-module.exports = () => {
+const router = express.Router()
 
-app.post('/login', passport.authenticate('local', {
+router.post('/login', passport.authenticate('local', {
     session: false
     }), (req, res) => {
         const token = jwt.sign({
@@ -21,7 +21,7 @@ app.post('/login', passport.authenticate('local', {
     }
 );
 
-app.post('/join', async (req, res) => {
+router.post('/join', async (req, res) => {
     const {email, password, name} = req.body;
     User.create({
         email: email,
@@ -33,6 +33,4 @@ app.post('/join', async (req, res) => {
     })
 })
 
-return app;
-
-}
+module.exports = router;

@@ -23,8 +23,9 @@ app.use(passport.initialize());
 var LocalConfig = require('./passport/LocalStrategy');
 LocalConfig(); // passport 사용
 
-var authRouter = require('./routes/auth.js');
-app.use('/auth', authRouter());
+const routes = require('./routes');
+
+app.use('/', routes);
 
 app.use((req,res,next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
