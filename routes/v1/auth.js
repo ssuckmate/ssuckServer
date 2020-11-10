@@ -29,18 +29,9 @@ router.post('/login', (req,res,next) =>{
     })(req,res,next);
 });
 
-    // passport.authenticate('local', {session: false}, ()),
-    // (req, res) => {
-    //     const token = jwt.sign({
-    //         email: req.user.email,
-    //     }, secret);
-    //     console.log(token);
-    //     res.status(200).send(token);
-    // }
 
 router.post('/join', async (req, res, next) => {
     const {email, password, name} = req.body;
-    console.log('tl;qkf');
     try{
         const exUser = await User.findOne({where:{email}});
         if(exUser){
@@ -60,7 +51,11 @@ router.post('/join', async (req, res, next) => {
         console.error(error);
         return next(error);
     }
-    
 })
+//토큰 테스트용
+router.get('/users', passport.authenticate('jwt',{session:false}), async (req,res,next) =>{
+    console.log("이야야아아 나는 뽀로롤다!!");
+    return res.status(200).send("토큰테스트 성공");
+});
 
 module.exports = router;

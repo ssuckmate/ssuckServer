@@ -25,8 +25,8 @@ app.use(express.urlencoded({extended:false}));
 
 
 app.use(passport.initialize());
-var LocalConfig = require('./passport/LocalStrategy');
-LocalConfig(); // passport 사용
+const passportConfig = require('./config/passport');
+passportConfig(); // passport 사용
 
 const routes = require('./routes');
 
