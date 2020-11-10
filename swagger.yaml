@@ -32,3 +32,12 @@ paths:
                 properties:
                   message:
                     type: string
+        '409':
+          description: "duplicated email"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string

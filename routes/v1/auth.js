@@ -21,16 +21,28 @@ router.post('/login', passport.authenticate('local', {
     }
 );
 
-router.post('/join', async (req, res) => {
+router.post('/join', async (req, res, next) => {
     const {email, password, name} = req.body;
-    User.create({
-        email: email,
-        password: password,
-        name: name,
-    });
-    return res.status(201).json({
-        message: '가입이 완료되었습니다. 로그인하세요.'
-    })
+    try{
+        const exUser = await User.findOne({where:{email}});
+        if(exUser){
+            return res.status(409).json({
+                message:'이미 가입된 이메일입니다.'
+            })
+        }
+        User.create({
+            email: email,
+            password: password,
+            name: name,
+        });
+        return res.status(201).json({
+            message: '가입이 완료되었습니다. 로그인하세요.'
+        })
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+    
 })
 
 module.exports = router;
