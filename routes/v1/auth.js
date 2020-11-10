@@ -16,8 +16,8 @@ router.post('/login', passport.authenticate('local', {
             email: req.user.email,
             password: req.user.password
         }, secret);
-        console.log(token)
-        res.send(token);
+        console.log(token);
+        res.status(200).send(token);
     }
 );
 

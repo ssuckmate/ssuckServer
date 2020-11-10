@@ -1,0 +1,35 @@
+openapi: "3.0.0"
+info: 
+  version: "1.0.0"
+  title: "ssuckServer API"
+
+servers: 
+  - url: "localhost:3000"
+
+paths:
+  /auth/join:
+    post:
+      summary: "Create User"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+                name:
+                  type: string
+      responses:
+        '201':
+          description: "New user is created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string

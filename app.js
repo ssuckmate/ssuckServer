@@ -2,6 +2,11 @@ const express = require('express');
 const {sequelize} = require('./models');
 const morgan = require('morgan');
 const passport = require('passport');
+const swaggerUI = require('swagger-ui-express');
+const jsyaml = require('js-yaml');
+const fs = require('fs');
+const swaggerSpec = fs.readFileSync('swagger.yaml','utf8')
+const swaggerDocument = jsyaml.safeLoad(swaggerSpec);
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -25,7 +30,10 @@ LocalConfig(); // passport 사용
 
 const routes = require('./routes');
 
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocument))
+
 app.use('/', routes);
+
 
 app.use((req,res,next) => {
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
@@ -36,6 +44,7 @@ app.use((req,res,next) => {
 app.use((err,req,res,next)=> {
     res.status(err.status||500).send(err);
 });
+
 
 app.listen(app.get('port'), () =>{
     console.log(app.get('port'),"번 포트에서 대기중");
