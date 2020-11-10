@@ -9,7 +9,7 @@ const secret = process.env.JWT || '13@@4d%sf!a'
 
 const router = express.Router()
 
-router.post('/login', async (req,res,next) =>{
+router.post('/login', (req,res,next) =>{
     console.log("askldfjn");
     passport.authenticate('local', {session:false},(authError, user, info) =>{
         if(authError){
