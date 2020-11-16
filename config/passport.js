@@ -4,11 +4,11 @@ const passportJWT = require('passport-jwt')
 const JWTStrategy = passportJWT.Strategy;
 const extractJWT = passportJWT.ExtractJwt;
 const bcrypt = require('bcrypt')
-const { User } = require('../models');
+const { User, Sagam } = require('../models');
 
 module.exports = () => {
 
-    passport.use(new LocalStrategy({
+    passport.use('user_local', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'
     },async (email, password, done) => {
@@ -29,22 +29,26 @@ module.exports = () => {
         
     }));
 
-    passport.use(new JWTStrategy({
-        jwtFromRequest : extractJWT.fromBodyField('token'),
-        secretOrKey : process.env.JWT || '13@@4d%sf!a'
-    }, async (jwtPayload, done) => {
+    passport.use('sagam_local', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    },async (email, password, done) => {
         try{
-            const user = await User.findOne({
+            const sagam = await Sagam.findOne({
                 where: {
-                    email: jwtPayload.email
+                    email: email,
+                    password: password
                 }
             });
-            done(null,user);
+            if (!sagam) done(null, false, {message:'이메일이나 비밀번호가 일치하지 않습니다.'});
+            else {
+                done(null, sagam);  
+            }  
         }catch(error){
-            return done(error);
+            done(error);
         }
-    }
-    ))
+        
+    }));
 
     return passport;
 }

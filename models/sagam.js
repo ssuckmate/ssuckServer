@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = class User extends Sequelize.Model{
+module.exports = class Sagam extends Sequelize.Model{
     static init(sequelize){
         return super.init({
             email: {
@@ -16,25 +16,12 @@ module.exports = class User extends Sequelize.Model{
                 type: Sequelize.STRING(20),
                 allowNull: false,
             },
-            phoneNum: {
-                type: Sequelize.STRING(15),
-                allowNull: false
-            },
-            provider: {
-                type: Sequelize.STRING(10),
-                allowNull: false,
-                defaultValue: 'local',
-            },
-            snsId: {
-                type: Sequelize.STRING(30),
-                allowNull: true,
-            },
         }, {
               sequelize,
               timestamps: true,
               underscored: false,
-              modelName: 'User',
-              tableName: 'users',
+              modelName: 'Sagam',
+              tableName: 'sagams',
               paranoid: true,
               charset: 'utf8',
               collate: 'utf8_general_ci',
@@ -43,8 +30,5 @@ module.exports = class User extends Sequelize.Model{
     
     static associate(db){
         db.User.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
-        db.User.belongsTo(db.Room, {foreignKey: 'room', targetKey: 'id'});
-        db.User.hasMany(db.Parcel, {foreignKey:'recipient', sourceKey:'id'});
-        db.User.hasOne(db.IsNotAuthed, {foreignKey:'user', sourceKet: 'id'});
     }
 }

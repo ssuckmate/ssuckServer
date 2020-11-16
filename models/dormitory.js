@@ -7,6 +7,10 @@ module.exports = class Dormitory extends Sequelize.Model{
                 type:Sequelize.STRING(100),
                 allowNull: false,
             },
+            identifier: {
+                type:Sequelize.STRING(10),
+                allowNull: false,
+            }
         },{
             sequelize,
             timestamps: true,
@@ -22,6 +26,8 @@ module.exports = class Dormitory extends Sequelize.Model{
     static associate(db){
         db.Dormitory.hasMany(db.User, {foreignKey: 'dormitory', sourceKey:'id'});
         db.Dormitory.hasMany(db.Room, {foreignKey: 'dormitory', sourceKey:'id'});
+        db.Dormitory.hasMany(db.Sagam, {foreignKey: 'dormitory', sourceKey: 'id'});
+        db.Dormitory.hasMany(db.IsNotAuthed, {foreignKey: 'dormitory', sourceKey: 'id'});
     }
 
 }

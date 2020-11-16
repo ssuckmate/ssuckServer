@@ -1,16 +1,15 @@
 const express = require('express');
-var app = express();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { User } = require('../../models');
+const { Sagam } = require('../../../models');
 
 const secret = process.env.JWT || '13@@4d%sf!a'
 
 const router = express.Router()
 
 router.post('/login', (req,res,next) =>{
-    passport.authenticate('local',(authError, user, info) =>{
+    passport.authenticate('sagam_local',(authError, user, info) =>{
         if(authError){
             console.error(authError);
             return next(authError);
@@ -29,17 +28,16 @@ router.post('/login', (req,res,next) =>{
     })(req,res,next);
 });
 
-
 router.post('/join', async (req, res, next) => {
     const {email, password, name} = req.body;
     try{
-        const exUser = await User.findOne({where:{email}});
+        const exUser = await Sagam.findOne({where:{email}});
         if(exUser){
             return res.status(409).json({
                 message:'이미 가입된 이메일입니다.'
             })
         }
-        User.create({
+        Sagam.create({
             email: email,
             password: password,
             name: name,
@@ -52,10 +50,5 @@ router.post('/join', async (req, res, next) => {
         return next(error);
     }
 })
-//토큰 테스트용
-router.get('/users', passport.authenticate('jwt',{session:false}), async (req,res,next) =>{
-    console.log("이야야아아 나는 뽀로롤다!!");
-    return res.status(200).send("토큰테스트 성공");
-});
 
 module.exports = router;
