@@ -9,7 +9,7 @@ module.exports = class Parcel extends Sequelize.Model{
             },
             status:{
                 type:Sequelize.ENUM(['찾아감','보관중','분실']),
-                allowNull: false,
+                allowNull: true,
             }
         },{
             sequelize,

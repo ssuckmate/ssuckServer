@@ -29,22 +29,6 @@ module.exports = () => {
         
     }));
 
-    passport.use(new JWTStrategy({
-        jwtFromRequest : extractJWT.fromBodyField('token'),
-        secretOrKey : process.env.JWT || '13@@4d%sf!a'
-    }, async (jwtPayload, done) => {
-        try{
-            const user = await User.findOne({
-                where: {
-                    email: jwtPayload.email
-                }
-            });
-            done(null,user);
-        }catch(error){
-            return done(error);
-        }
-    }
-    ))
 
     return passport;
 }

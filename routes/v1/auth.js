@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { User } = require('../../models');
+const {hasToken} = require('./middlewares')
 
 const secret = process.env.JWT || '13@@4d%sf!a'
 
@@ -54,7 +55,7 @@ router.post('/join', async (req, res, next) => {
     }
 })
 //토큰 테스트용
-router.get('/users', passport.authenticate('jwt',{session:false}), async (req,res,next) =>{
+router.get('/users', hasToken, async (req,res,next) =>{
     console.log("이야야아아 나는 뽀로롤다!!");
     return res.status(200).send("토큰테스트 성공");
 });
