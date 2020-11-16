@@ -10,7 +10,7 @@ const secret = process.env.JWT || '13@@4d%sf!a'
 const router = express.Router()
 
 router.post('/login', (req,res,next) =>{
-    passport.authenticate('local',(authError, user, info) =>{
+    passport.authenticate('local',{session:false},(authError, user, info) =>{
         if(authError){
             console.error(authError);
             return next(authError);
@@ -24,7 +24,8 @@ router.post('/login', (req,res,next) =>{
                 return next(loginError);
             }
             const token = jwt.sign(user.toJSON(), secret);
-            return res.status(200).send(token);
+            return res.status(200).json({status:"200",
+            token:token});
         });
     })(req,res,next);
 });
