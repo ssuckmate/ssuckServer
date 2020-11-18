@@ -15,7 +15,7 @@ router.post('/login', (req,res,next) =>{
             return next(authError);
         }
         if(!user){
-            return res.status(202).json(info.message);
+            return res.status(400).json(info.message);
         }
         return req.login(user,{session:false}, (loginError)=>{
             if(loginError){
@@ -23,7 +23,9 @@ router.post('/login', (req,res,next) =>{
                 return next(loginError);
             }
             const token = jwt.sign(user.toJSON(), secret);
-            return res.status(200).send(token);
+            return res.status(200).json({
+                token: token
+            });
         });
     })(req,res,next);
 });
@@ -51,10 +53,5 @@ router.post('/join', async (req, res, next) => {
         return next(error);
     }
 })
-//토큰 테스트용
-router.get('/users', passport.authenticate('jwt',{session:false}), async (req,res,next) =>{
-    console.log("이야야아아 나는 뽀로롤다!!");
-    return res.status(200).send("토큰테스트 성공");
-});
 
 module.exports = router;

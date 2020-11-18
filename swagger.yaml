@@ -6,9 +6,11 @@ info:
 servers: 
   - url: http://52.78.214.64:3000/v1
 paths:
-  /auth/join:
+  /user/auth/join:
     post:
-      summary: "Create User"
+      tags:
+        - "auth"
+      summary: "Create for student"
       requestBody: 
         required: true
         content:
@@ -34,6 +36,267 @@ paths:
                     type: string
         '409':
           description: "duplicated email"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /user/auth/login:
+    post:
+      tags:
+        - "auth"
+      summary: "Login for student"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: "Sucessfully logined"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: "Invaild email or password"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /sagam/auth/join:
+    post:
+      tags:
+        - "auth"
+      summary: "Create for sagam"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+                name:
+                  type: string
+      responses:
+        '201':
+          description: "New sagam is created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '409':
+          description: "duplicated email"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /sagam/auth/login:
+    post:
+      tags:
+        - "auth"
+      summary: "Login for sagam"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: "Sucessfully logined"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: "Invaild email or password"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /sagam/dormitory/add:
+    post:
+      tags:
+        - "dormitory"
+      summary: "Add dormitory related to sagam (identifier is dormitory's password)"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                name: 
+                  type: string
+                identifier:
+                  type: string
+      responses:
+        '201':
+          description: "New dormitory is created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '409':
+          description: "duplicated name"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /sagam/dormitory/join:
+    post:
+      tags:
+        - "dormitory"
+      summary: "Join existing dormitory related to sagam"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                name: 
+                  type: string
+                identifier:
+                  type: string
+      responses:
+        '201':
+          description: "Joined sucessfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: "Incorrect name or identifier"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /sagam/parcel/add:
+    post:
+      tags:
+        - "parcel"
+      summary: "Add parcel"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                sender: 
+                  type: string
+                recipient:
+                  type: string
+      responses:
+        '201':
+          description: "New parcel is added"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /user/parcel/myParcels:
+    post:
+      tags:
+        - "parcel"
+      summary: "Load my parcels"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        '200':
+          description: "Display parcel list"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parcel:
+                    type: object
+  /user/parcel/take:
+    post:
+      tags:
+        - "parcel"
+      summary: "Take parcel"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                id:
+                  type: integer
+                status:
+                  type: string
+      responses:
+        '201':
+          description: "Parcel is taked"
           content:
             application/json:
               schema:

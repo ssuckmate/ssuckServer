@@ -28,6 +28,7 @@ module.exports = class Dormitory extends Sequelize.Model{
         db.Dormitory.hasMany(db.Room, {foreignKey: 'dormitory', sourceKey:'id'});
         db.Dormitory.hasMany(db.Sagam, {foreignKey: 'dormitory', sourceKey: 'id'});
         db.Dormitory.hasMany(db.IsNotAuthed, {foreignKey: 'dormitory', sourceKey: 'id'});
+        db.Dormitory.hasMany(db.Parcel, {foreignKey: 'dormitory', sourceKey: 'id'});
     }
 
 }

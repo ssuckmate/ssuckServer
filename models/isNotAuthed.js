@@ -9,7 +9,7 @@ module.exports = class IsNotAuthed extends Sequelize.Model{
             timestamps: true,
             underscored: false,
             modelName: 'IsNotAuthed',
-            tableName: 'isNotAutheds',
+            tableName: 'isnotautheds',
             paranoid: true,
             charset: 'utf8',
             collate: 'utf8_general_ci',

@@ -15,7 +15,7 @@ router.post('/login', (req,res,next) =>{
             return next(authError);
         }
         if(!user){
-            return res.status(202).json(info.message);
+            return res.status(400).json(info.message);
         }
         return req.login(user,{session:false}, (loginError)=>{
             if(loginError){
@@ -23,7 +23,9 @@ router.post('/login', (req,res,next) =>{
                 return next(loginError);
             }
             const token = jwt.sign(user.toJSON(), secret);
-            return res.status(200).send(token);
+            return res.status(200).json({
+                token: token
+            });
         });
     })(req,res,next);
 });

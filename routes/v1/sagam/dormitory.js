@@ -1,7 +1,6 @@
 const express = require('express');
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
 const { Sagam, Dormitory } = require('../../../models');
 const {hasToken} = require('../middlewares')
 
@@ -18,14 +17,16 @@ router.post('/add', hasToken, async (req,res,next) =>{
                 message:'이미 가입된 이름입니다.'
             })
         }
-        Dormitory.create({
+        const dormitory = await Dormitory.create({
             name: name,
             identifier: identifier
         });
 
-        var sagam = Sagam.findOne({where:{email: req.decode.email}});
-        var dormitory = Dormitory.findOne({where:{name: name}});
-        sagam.dormitory = dormitory.id;
+        Sagam.update({
+            dormitory: dormitory.id
+        },{
+            where: { id: req.decode.id }
+        })
 
         return res.status(201).json({
             message: `기숙사 이름: ${name}, 기숙사 비밀번호: ${identifier} 로 생성되었습니다.`
@@ -34,7 +35,37 @@ router.post('/add', hasToken, async (req,res,next) =>{
         console.error(error);
         return next(error);
     }
+})
 
-});
+router.post('/join', hasToken, async (req,res,next) =>{
+    const {name, identifier} = req.body;
+    try{
+        const dormitory = await Dormitory.findOne({
+            where: {
+                [Op.and]: [
+                    { name: name },
+                    { identifier: identifier }
+                ]
+            }
+        });
+
+        if (!dormitory) return res.status(400).json({
+            message: `등록되지 않은 기숙사거나 비밀번호가 잘못되었습니다.`
+        })
+
+        Sagam.update({
+            dormitory: dormitory.id
+        },{
+            where: { id: req.decode.id }
+        })
+
+        return res.status(201).json({
+            message: `${name}의 사감으로 등록되었습니다.`
+        })
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+})
 
 module.exports = router;

@@ -3,7 +3,10 @@ const Sequelize = require('sequelize');
 module.exports = class Room extends Sequelize.Model{
     static init(sequelize){
         return super.init({
-
+            roomNum:{
+                type:Sequelize.INTEGER,
+                allowNull: false,
+            }
         },{
             sequelize,
             timestamps: true,

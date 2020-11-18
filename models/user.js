@@ -18,7 +18,7 @@ module.exports = class User extends Sequelize.Model{
             },
             phoneNum: {
                 type: Sequelize.STRING(15),
-                allowNull: false
+                defaultValue: "00000000000",
             },
             provider: {
                 type: Sequelize.STRING(10),
@@ -29,6 +29,15 @@ module.exports = class User extends Sequelize.Model{
                 type: Sequelize.STRING(30),
                 allowNull: true,
             },
+            isAuthed: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false,
+            },
+            penalty: {
+                type: Sequelize.INTEGER,
+                defaultValue: 0,
+            },
+
         }, {
               sequelize,
               timestamps: true,
