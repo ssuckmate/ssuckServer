@@ -2,8 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { User } = require('../../models');
-const {hasToken} = require('./middlewares')
+const { User } = require('../../../models');
+const {hasToken} = require('../middlewares')
 
 const secret = process.env.JWT || '13@@4d%sf!a'
 
