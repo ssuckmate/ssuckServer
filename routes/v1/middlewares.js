@@ -1,10 +1,9 @@
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+
 exports.hasToken = (req,res,next) => {
     try{
-        console.log(req.body.token);
         req.decode = jwt.verify(req.body.token, process.env.JWT || '13@@4d%sf!a');
-        console.log(req.decode);
         return next();
     }catch(error){
         if(error.name == "TokenExpiredError"){

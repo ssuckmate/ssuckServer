@@ -5,11 +5,15 @@ module.exports = class Parcel extends Sequelize.Model{
         return super.init({
             sender:{
                 type:Sequelize.STRING(40),
-                allowNull:false,
+                allowNull: false,
             },
             status:{
                 type:Sequelize.ENUM(['찾아감','보관중','분실']),
-                allowNull: true,
+                allowNull: false,
+            },
+            taker: {
+                type:Sequelize.STRING(20),
+                allowNull: true
             }
         },{
             sequelize,
@@ -25,6 +29,7 @@ module.exports = class Parcel extends Sequelize.Model{
 
     static associate(db){
         db.Parcel.belongsTo(db.User, {foreignKey: "recipient", targetKey: 'id'});
+        db.Parcel.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
     }
 
 }
