@@ -307,7 +307,7 @@ paths:
   /user/parcel/delete:
     delete:
       tags:
-        -"parcel"
+        - "parcel"
       summary: "delete parcel"
       requestBody: 
         required: true
