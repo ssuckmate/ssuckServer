@@ -276,11 +276,11 @@ paths:
                 properties:
                   parcel:
                     type: object
-  /user/parcel/take:
-    post:
+  /user/parcel/changeStatus:
+    put:
       tags:
         - "parcel"
-      summary: "Take parcel"
+      summary: "parcel상태를 찾아감,보관중,분실 중 하나로 설정"
       requestBody: 
         required: true
         content:
@@ -296,7 +296,7 @@ paths:
                   type: string
       responses:
         '201':
-          description: "Parcel is taked"
+          description: "Parcel 상태 변경 완료"
           content:
             application/json:
               schema:
@@ -304,3 +304,31 @@ paths:
                 properties:
                   message:
                     type: string
+  /user/parcel/delete:
+    delete:
+      tags:
+        -"parcel"
+      summary: "delete parcel"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                id:
+                  type: integer
+      responses:
+        '201':
+          description: "Parcel 삭제 완료"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+      
