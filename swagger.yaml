@@ -316,7 +316,6 @@ paths:
           description: "세탁기 추가 완료"
           content:
             $ref: '#contents/postResponseContent'
-
   /user/washingMachine/:
     get:
       tags:
