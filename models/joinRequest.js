@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = class IsNotAuthed extends Sequelize.Model{
+module.exports = class JoinRequest extends Sequelize.Model{
     static init(sequelize){
         return super.init({
 
@@ -8,8 +8,8 @@ module.exports = class IsNotAuthed extends Sequelize.Model{
             sequelize,
             timestamps: true,
             underscored: false,
-            modelName: 'IsNotAuthed',
-            tableName: 'isnotautheds',
+            modelName: 'JoinRequest',
+            tableName: 'joinrequests',
             charset: 'utf8',
             collate: 'utf8_general_ci',
           });

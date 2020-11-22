@@ -4,7 +4,9 @@ const Parcel = require('./parcel');
 const Dormitory = require('./dormitory');
 const Room = require('./room');
 const Sagam = require('./sagam');
-const IsNotAuthed = require('./isNotAuthed');
+const JoinRequest = require('./joinRequest');
+const DryingMachine = require('./dryingMachine')
+const WashingMachine = require('./washingMachine')
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -19,23 +21,29 @@ db.Parcel = Parcel;
 db.Dormitory = Dormitory;
 db.Room = Room;
 db.Sagam = Sagam;
-db.IsNotAuthed = IsNotAuthed;
+db.IsNotAuthed = JoinRequest;
+db.DryingMachine = DryingMachine;
+db.WashingMachine = WashingMachine;
 
 
-User.init(sequelize)
-Parcel.init(sequelize)
-Dormitory.init(sequelize)
-Room.init(sequelize)
-Sagam.init(sequelize)
-IsNotAuthed.init(sequelize)
+User.init(sequelize);
+Parcel.init(sequelize);
+Dormitory.init(sequelize);
+Room.init(sequelize);
+Sagam.init(sequelize);
+JoinRequest.init(sequelize);
+DryingMachine.init(sequelize);
+WashingMachine.init(sequelize);
 
 
-User.associate(db)
-Parcel.associate(db)
-Dormitory.associate(db)
-Room.associate(db)
-Sagam.associate(db)
-IsNotAuthed.associate(db)
+User.associate(db);
+Parcel.associate(db);
+Dormitory.associate(db);
+Room.associate(db);
+Sagam.associate(db);
+JoinRequest.associate(db);
+DryingMachine.associate(db);
+WashingMachine.associate(db);
 
 
 module.exports = db;
