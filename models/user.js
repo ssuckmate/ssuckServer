@@ -37,7 +37,10 @@ module.exports = class User extends Sequelize.Model{
                 type: Sequelize.INTEGER,
                 defaultValue: 0,
             },
-
+            advantage:{
+                type: Sequelize.INTEGER,
+                defaultValue:0,
+            }
         }, {
               sequelize,
               timestamps: true,
