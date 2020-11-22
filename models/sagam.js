@@ -22,7 +22,6 @@ module.exports = class Sagam extends Sequelize.Model{
               underscored: false,
               modelName: 'Sagam',
               tableName: 'sagams',
-              paranoid: true,
               charset: 'utf8',
               collate: 'utf8_general_ci',
         }); 

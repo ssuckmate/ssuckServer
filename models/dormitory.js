@@ -17,7 +17,6 @@ module.exports = class Dormitory extends Sequelize.Model{
             underscored: false,
             modelName: 'Dormitory',
             tableName: 'dormitories',
-            paranoid: true,
             charset: 'utf8',
             collate: 'utf8_general_ci',
           })

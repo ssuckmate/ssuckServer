@@ -13,7 +13,6 @@ module.exports = class Room extends Sequelize.Model{
             underscored: false,
             modelName: 'Room',
             tableName: 'rooms',
-            paranoid: true,
             charset: 'utf8',
             collate: 'utf8_general_ci',
           })

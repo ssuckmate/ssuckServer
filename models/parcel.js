@@ -21,7 +21,6 @@ module.exports = class Parcel extends Sequelize.Model{
             underscored: false,
             modelName: 'Parcel',
             tableName: 'parcels',
-            paranoid: true,
             charset: 'utf8',
             collate: 'utf8_general_ci',
           })

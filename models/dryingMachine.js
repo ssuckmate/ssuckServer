@@ -17,7 +17,6 @@ module.exports = class DryingMachine extends Sequelize.Model{
             underscored: false,
             modelName: 'DryingMachine',
             tableName: 'dryingmachines',
-            paranoid: true,
             charset: 'utf8',
             collate: 'utf8_general_ci',
           })
