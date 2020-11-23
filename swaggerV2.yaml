@@ -1,0 +1,523 @@
+openapi: "3.0.0"
+info: 
+  version: "1.0.0"
+  title: ssuckServer API
+  description: "ssuckmate server API 입니다."
+
+servers: 
+  - url: http://localhost:3000/v2
+    description: Local Server
+  - url: http://52.78.214.64:3000/v2
+    description: dev Server
+paths:
+  /user:
+    get:
+      tags:
+        - "user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        '200':
+          description: "모든 유저의 리스트입니다."
+          content:
+            $ref: '#/contents/userArray'
+  /user/auth/join:
+    post:
+      tags:
+        - auth
+      summary: Create a student
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+                name:
+                  type: string
+      responses:
+        '201':
+          description: "New user is created"
+          content:
+            $ref: '#contents/postResponseContent'
+        '409':
+          description: "duplicated email"
+          content:
+            $ref: '#contents/postResponseContent'
+  /user/auth/login:
+    post:
+      tags:
+        - "auth"
+      summary: "Login for student"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: "Sucessfully logined"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: "Invaild email or password"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /sagam/auth/join:
+    post:
+      tags:
+        - "auth"
+      summary: "Create for sagam"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+                name:
+                  type: string
+      responses:
+        '201':
+          description: "New sagam is created"
+          content:
+            $ref: '#contents/postResponseContent'
+        '409':
+          description: "duplicated email"
+          content:
+            $ref: '#contents/postResponseContent'
+  /sagam/auth/login:
+    post:
+      tags:
+        - "auth"
+      summary: "Login for sagam"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password: 
+                  type: string
+      responses:
+        '200':
+          description: "Sucessfully logined"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: "Invaild email or password"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /sagam/dormitory/add:
+    post:
+      tags:
+        - "dormitory"
+      summary: "Add dormitory related to sagam (identifier is dormitory's password)"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                name: 
+                  type: string
+                identifier:
+                  type: string
+      responses:
+        '201':
+          description: "New dormitory is created"
+          content:
+            $ref: '#contents/postResponseContent'
+        '409':
+          description: "duplicated name"
+          content:
+            $ref: '#contents/postResponseContent'
+  /sagam/dormitory/join:
+    post:
+      tags:
+        - "dormitory"
+      summary: "Join existing dormitory related to sagam"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                name: 
+                  type: string
+                identifier:
+                  type: string
+      responses:
+        '201':
+          description: "Joined sucessfully"
+          content:
+            $ref: '#contents/postResponseContent'
+        '400':
+          description: "Incorrect name or identifier"
+          content:
+            $ref: '#contents/postResponseContent'
+  /sagam/parcel/add:
+    post:
+      tags:
+        - "parcel"
+      summary: "Add parcel"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                sender: 
+                  type: string
+                recipient:
+                  type: string
+      responses:
+        '201':
+          description: "New parcel is added"
+          content:
+            $ref: '#contents/postResponseContent'
+  /user/parcel/myParcels:
+    post:
+      tags:
+        - "parcel"
+      summary: "Load my parcels"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        '200':
+          description: "Display parcel list"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parcel:
+                    type: object
+  /user/parcel/changeStatus:
+    put:
+      tags:
+        - "parcel"
+      summary: "parcel상태를 찾아감,보관중,분실 중 하나로 설정"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                id:
+                  type: integer
+                status:
+                  type: string
+      responses:
+        '201':
+          description: "Parcel 상태 변경 완료"
+          content:
+            $ref: '#contents/putResponseContent'
+  /user/parcel/delete:
+    delete:
+      tags:
+        - "parcel"
+      summary: "delete parcel"
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                id:
+                  type: integer
+      responses:
+        '201':
+          description: "Parcel 삭제 완료"
+          content:
+            $ref: '#contents/deleteResponseContent'
+  /sagam/washingMachine/add:
+    post:
+      tags:
+        - "washingMachine"
+      summary: "기숙사에 세탁기를 추가합니다."
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        '201':
+          description: "세탁기 추가 완료"
+          content:
+            $ref: '#contents/postResponseContent'
+  /user/washingMachine/:
+    get:
+      tags:
+        - "washingMachine"
+      summary: "기숙사에 있는 세탁기 리스트를 받아옵니다."
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        '200':
+          description: "세탁기 리스트 받아옴"
+          content:
+            application/json:
+              schema:
+                type: array
+                properties:
+                  washingMachine:
+                    type: object
+  # /user/parcel/changeStatus:
+  #   put:
+  #     tags:
+  #       - "parcel"
+  #     summary: "parcel상태를 찾아감,보관중,분실 중 하나로 설정"
+  #     requestBody: 
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               token:
+  #                 type: string
+  #               id:
+  #                 type: integer
+  #               status:
+  #                 type: string
+  #     responses:
+  #       '201':
+  #         description: "Parcel 상태 변경 완료"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 message:
+  #                   type: string
+  # /user/parcel/delete:
+  #   delete:
+  #     tags:
+  #       - "parcel"
+  #     summary: "delete parcel"
+  #     requestBody: 
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               token:
+  #                 type: string
+  #               id:
+  #                 type: integer
+  #     responses:
+  #       '201':
+  #         description: "Parcel 삭제 완료"
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 message:
+  #                   type: string
+
+contents:
+  putResponseContent:
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+  deleteResponseContent:
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+  postResponseContent:
+    application/json:
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+  userArray:
+    applications/json:
+      schema:
+        $ref: '#schemas/userArray'
+  parcel: 
+    applications/json:
+        schema:
+          $ref: '#schemas/parcel'
+  washingMachine:
+     applications/json:
+        schema:
+          $ref: '#schemas/washingMachine'
+  washingMachineArray:
+    applications/json:
+      schema: 
+        $ref: "#schemnas/washingMachineArray"
+schemas:
+  userArray:
+    type: array
+    items:
+      $ref: "#schemas/user"
+  user:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      email:
+        type: string
+        format: email
+        example: mail@mail.com
+      password:
+        type: string
+        example: sf23#$@$1f
+      name:
+        type: string
+        example: userName
+      phoneNum:
+        type: integer
+        example: 01012341234
+      provider:
+        type: string
+        example: local
+      snsId:
+        type: string
+      isAuthed:
+        type: boolean
+      penalty:
+        type: integer
+        example: 5
+      advantage:
+        type: integer
+        example: 5
+      createdAt:
+        type: 
+      room:
+        type: integer
+        example: 401
+      dormitory:
+        type: integer
+        example: 1
+  parcel:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      sender:
+        type: string
+        example: 김현수
+      status:
+        type: string
+        enum:
+          - 찾아감
+          - 보관중
+          - 분실됨
+      taker:
+        type: string
+        example: userName
+      advantage:
+        type: integer
+        example: 5
+      deletedAt:
+        type: date-time
+      room:
+        type: integer
+        example: 401
+      dormitory:
+        type: integer
+        example: 1
+  washingMachineArray:
+    type: array
+    items: "#schemas/washingMachine"
+  washingMachine:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      deletedAt:
+        type: date-time
+      dormitory:
+        type: integer
+        example: 1
