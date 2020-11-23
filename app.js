@@ -2,11 +2,13 @@ const express = require('express');
 const {sequelize} = require('./models');
 const morgan = require('morgan');
 const passport = require('passport');
-const swaggerUI = require('swagger-ui-express');
 const jsyaml = require('js-yaml');
 const fs = require('fs');
-const swaggerSpec = fs.readFileSync('swagger.yaml','utf8')
-const swaggerDocument = jsyaml.safeLoad(swaggerSpec);
+const swaggerUI = require('swagger-ui-express');
+const swaggerV1 = fs.readFileSync('swaggerV1.yaml','utf8')
+const swaggerV2 = fs.readFileSync('swaggerV2.yaml','utf8')
+const swaggerV1Doc = jsyaml.safeLoad(swaggerV1);
+const swaggerV2Doc = jsyaml.safeLoad(swaggerV2);
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -30,7 +32,9 @@ passportConfig(); // passport 사용
 
 const routes = require('./routes');
 
-app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocument))
+app.use('/api-docs/v1',swaggerUI.serve,swaggerUI.setup(swaggerV1Doc));
+app.use('/api-docs/v2',swaggerUI.serve,swaggerUI.setup(swaggerV2Doc));
+
 
 app.use('/', routes);
 
