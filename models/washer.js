@@ -15,16 +15,15 @@ module.exports = class WashingMachine extends Sequelize.Model{
             sequelize,
             timestamps: true,
             underscored: false,
-            modelName: 'WashingMachine',
-            tableName: 'washingmachines',
-            paranoid: true,
+            modelName: 'Washer',
+            tableName: 'washers',
             charset: 'utf8',
             collate: 'utf8_general_ci',
           })
     }
 
     static associate(db){
-        db.DryingMachine.belongsTo(db.User, {foreignKey: 'dormitory', sourceKey:'id'});
+        db.Washer.belongsTo(db.User, {foreignKey: 'dormitory', sourceKey:'id'});
     }
 
 }
