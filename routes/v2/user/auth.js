@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { User } = require('../../../models');
+const { User, Dormitory} = require('../../../models');
 const {hasToken} = require('../middlewares')
 
 const secret = process.env.JWT || '13@@4d%sf!a'
@@ -34,21 +34,27 @@ router.post('/login', (req,res,next) =>{
 
 
 router.post('/join', async (req, res, next) => {
-    const {email, password, name} = req.body;
+    const {email, password, name, phoneNum, dormitoryCode} = req.body;
     try{
-        const exUser = await User.findOne({where:{email}});
+        const exUser = await User.findOne({where:{phoneNum}});
         if(exUser){
             return res.status(409).json({
-                message:'이미 가입된 이메일입니다.'
+                message:'이미 가입된 전화번호 입니다..'
             })
         }
-        User.create({
+        const dormitory = await Dormitory.findOne({where:{
+            id : dormitoryCode
+        }})
+        const newUser = await User.create({
             email: email,
             password: password,
             name: name,
+            phoneNum:phoneNum,
+            dormitory:dormitory.id,
+            isAuthed:false
         });
         return res.status(201).json({
-            message: '가입이 완료되었습니다. 로그인하세요.'
+            message: '가입 신청이 완료되었습니다. 관리자에게 승인을 받으신 후 로그인하세요.'
         })
     }catch(error){
         console.error(error);

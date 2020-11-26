@@ -43,7 +43,7 @@ module.exports = class User extends Sequelize.Model{
             }
         }, {
               sequelize,
-              timestamps: true,
+              timestamps: false,
               underscored: false,
               modelName: 'User',
               tableName: 'users',
@@ -56,6 +56,5 @@ module.exports = class User extends Sequelize.Model{
         db.User.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
         db.User.belongsTo(db.Room, {foreignKey: 'room', targetKey: 'id'});
         db.User.hasMany(db.Parcel, {foreignKey:'recipient', sourceKey:'id'});
-        db.User.hasOne(db.IsNotAuthed, {foreignKey:'user', sourceKet: 'id'});
     }
 }
