@@ -233,8 +233,32 @@ paths:
           description: "New parcel is added"
           content:
             $ref: '#contents/postResponseContent'
+  /sagam/user:
+    get:
+      tags:
+        - "sagam"
+      summary: "기숙사의 유저 리스트 받아오기"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                userId: 
+                  type: integer
+      responses:
+        '200': 
+          description: "기숙사의 유저 리스트를 받아왔습니다."
+          content:
+            $ref: '#/contents/userArray'
+
+                  
+
   /user/parcel/myParcels:
-    post:
+    get:
       tags:
         - "parcel"
       summary: "Load my parcels"
@@ -251,12 +275,7 @@ paths:
         '200':
           description: "Display parcel list"
           content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  parcel:
-                    type: object
+            $ref: '#contents/parcelArray'
   /user/parcel/changeStatus:
     put:
       tags:
@@ -301,49 +320,7 @@ paths:
           description: "Parcel 삭제 완료"
           content:
             $ref: '#contents/deleteResponseContent'
-  /sagam/washingMachine/add:
-    post:
-      tags:
-        - "washingMachine"
-      summary: "기숙사에 세탁기를 추가합니다."
-      requestBody: 
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-      responses:
-        '201':
-          description: "세탁기 추가 완료"
-          content:
-            $ref: '#contents/postResponseContent'
-  /user/washingMachine/:
-    get:
-      tags:
-        - "washingMachine"
-      summary: "기숙사에 있는 세탁기 리스트를 받아옵니다."
-      requestBody: 
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-      responses:
-        '200':
-          description: "세탁기 리스트 받아옴"
-          content:
-            application/json:
-              schema:
-                type: array
-                properties:
-                  washingMachine:
-                    type: object
+
   # /user/parcel/changeStatus:
   #   put:
   #     tags:
@@ -425,18 +402,14 @@ contents:
     applications/json:
       schema:
         $ref: '#schemas/userArray'
+  parcelArray:
+    applications/json:
+      schema:
+        $ref: '#schemas/parcelArray'
   parcel: 
     applications/json:
         schema:
           $ref: '#schemas/parcel'
-  washingMachine:
-     applications/json:
-        schema:
-          $ref: '#schemas/washingMachine'
-  washingMachineArray:
-    applications/json:
-      schema: 
-        $ref: "#schemnas/washingMachineArray"
 schemas:
   userArray:
     type: array
@@ -482,6 +455,10 @@ schemas:
       dormitory:
         type: integer
         example: 1
+  parcelArray:
+    type: array
+    items:
+      $ref: "#schemas/parcel"
   parcel:
     type: object
     properties:
@@ -508,20 +485,6 @@ schemas:
       room:
         type: integer
         example: 401
-      dormitory:
-        type: integer
-        example: 1
-  washingMachineArray:
-    type: array
-    items: "#schemas/washingMachine"
-  washingMachine:
-    type: object
-    properties:
-      id:
-        type: integer
-        example: 1
-      deletedAt:
-        type: date-time
       dormitory:
         type: integer
         example: 1

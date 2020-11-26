@@ -8,7 +8,7 @@ const secret = process.env.JWT || '13@@4d%sf!a'
 
 const router = express.Router()
 
-router.post('/login', (req,res,next) =>{
+router.get('/login', (req,res,next) =>{
     passport.authenticate('sagam_local',(authError, user, info) =>{
         if(authError){
             console.error(authError);
