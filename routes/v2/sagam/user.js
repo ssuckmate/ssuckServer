@@ -26,6 +26,27 @@ router.get('/', hasToken,async(req, res, next) =>{
     }
 })
 
+router.get('/notAuthed', hasToken,async(req, res, next) =>{
+    try{
+        const sagam = await Sagam.findOne({where:{
+            id:req.decode.id
+        }})
+        const dormitory = await Dormitory.findOne({where:{
+            id:sagam.dormitory
+        }})
+        const users = await User.findAll({
+            where:{
+                dormitory: dormitory.id,
+                isAuthed: false
+            } 
+        });
+        return res.status(200).json(users);
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+})
+
 router.put('/authenticate', hasToken, async(req,res,next) =>{
     try{
         const user = await User.findOne({

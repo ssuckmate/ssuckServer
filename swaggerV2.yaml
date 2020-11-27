@@ -237,24 +237,28 @@ paths:
     get:
       tags:
         - "sagam"
-      summary: "기숙사의 유저 리스트 받아오기"
+      summary: "기숙사의 전체 리스트 받아오기"
+      description: "승인대기중인 놈들도 받아온다"
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-                userId: 
-                  type: integer
+        $ref: "#bodies/tokenRequestBody"
       responses:
         '200': 
           description: "기숙사의 유저 리스트를 받아왔습니다."
           content:
-            $ref: '#/contents/userArray'
-
+            $ref: '#contents/userArray'
+  /sagam/user/notAuthed:
+    get:
+      tags:
+        - sagam
+      summary: "해당 기숙사에 가입 신청한 유저 리스트"
+      requestBody: 
+        $ref: "#bodies/tokenRequestBody"
+      responses:
+        200:
+          description: "승인 대기중 유저 리스트를 받아왔습니다."
+          content:
+            $ref: '#contents/userArray'
+        
                   
 
   /user/parcel/myParcels:
@@ -321,7 +325,16 @@ paths:
           content:
             $ref: '#contents/deleteResponseContent'
 
-
+bodies:
+  tokenRequestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            token:
+              type: string
 contents:
   putResponseContent:
     application/json:
