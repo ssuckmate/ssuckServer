@@ -29,7 +29,8 @@ router.put('/changeStatus', hasToken, async (req, res, next) =>{
     try{
 
         await Washer.update({
-            status : req.body.status
+            status : req.body.status,
+            occupant: req.decode.id
         },{
             where:{
                 id : req.body.washerId
@@ -44,16 +45,5 @@ router.put('/changeStatus', hasToken, async (req, res, next) =>{
     }
 })
 
-router.delete('/delete', hasToken, async (req, res, next) =>{
-    try{
-        await Washer.destroy({where:{id: req.body.washerId}});
-        return res.status(200).json({
-            message: `세탁기가 삭제되었습니다.`
-        });
-    }catch(error){
-        console.error(error);
-        return next(error);
-    }
-})
 
 module.exports = router;
