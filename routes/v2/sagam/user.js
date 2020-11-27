@@ -55,7 +55,7 @@ router.put('/authenticate', hasToken, async(req,res,next) =>{
             } 
         });
         user.isAuthed = true;
-        user.save();
+        await user.save();
         return res.status(200).json({
             message:"가입 승인을 완료했습니다."
         });

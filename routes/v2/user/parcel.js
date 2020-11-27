@@ -25,7 +25,7 @@ router.put('/changeStatus', hasToken, async(req, res, next) =>{
     try{
         const user = await User.findOne({where:{id: req.decode.id}})
         const status = req.body.status;
-        Parcel.update({
+        await Parcel.update({
             status: status,
             taker: user.name
         },{
@@ -44,7 +44,7 @@ router.put('/changeStatus', hasToken, async(req, res, next) =>{
 router.delete('/delete', hasToken, async(req, res, next) =>{
     try{
         const user = await User.findOne({where:{id: req.decode.id}})
-        Parcel.destroy({
+        await Parcel.destroy({
             where: { id: req.body.id }
         })
         return res.status(200).json({

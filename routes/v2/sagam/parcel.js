@@ -9,7 +9,7 @@ router.post('/add', hasToken, async (req, res, next) =>{
         const sagam = await Sagam.findOne({where:{id: req.decode.id}})
         console.log(sagam)
         const user = await User.findOne({where:{name: req.body.recipient}})
-        Parcel.create({
+        await Parcel.create({
             sender: req.body.sender,
             status: '보관중',
             recipient: user.id,

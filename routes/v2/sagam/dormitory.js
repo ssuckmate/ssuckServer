@@ -22,7 +22,7 @@ router.post('/add', hasToken, async (req,res,next) =>{
             identifier: identifier
         });
 
-        Sagam.update({
+        await Sagam.update({
             dormitory: dormitory.id
         },{
             where: { id: req.decode.id }
@@ -53,7 +53,7 @@ router.post('/join', hasToken, async (req,res,next) =>{
             message: `등록되지 않은 기숙사거나 비밀번호가 잘못되었습니다.`
         })
 
-        Sagam.update({
+        await Sagam.update({
             dormitory: dormitory.id
         },{
             where: { id: req.decode.id }
