@@ -13,7 +13,7 @@ module.exports = class Room extends Sequelize.Model{
             }
         },{
             sequelize,
-            timestamps: true,
+            timestamps: false,
             underscored: false,
             modelName: 'Room',
             tableName: 'rooms',
