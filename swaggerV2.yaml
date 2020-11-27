@@ -118,7 +118,7 @@ paths:
           content:
             $ref: '#contents/postResponseContent'
   /sagam/auth/login:
-    post:
+    get:
       tags:
         - "auth"
       summary: "Login for sagam"
