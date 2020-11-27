@@ -363,7 +363,52 @@ paths:
           description: "Parcel 삭제 완료"
           content:
             $ref: '#contents/deleteResponseContent'
-
+  /user/washer/changeStatus:
+    put:
+      tags:
+        - washer
+      summary: 상태를 사용중, 비었음 중 하나로 변경하고 occupant 업데이트
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token: 
+                  type: string
+                status:
+                  type: string
+                  enum:
+                    - 사용중
+                    - 비었음
+      responses:
+        200:
+          description: "상태 변경 완료"
+          content: 
+            $ref: "#contents/putResponseContent"
+  /user/washer/floor:
+    get:
+      tags:
+        - washer
+      summary: 해당 층에 있는 세탁기 리스트 불러오기.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                floor:
+                  type: integer
+      responses:
+        200:
+          description: 해당 층 세탁기 다 불러옴
+          content:
+            $ref: '#contents/washerArray'
+          
 bodies:
   tokenRequestBody:
     required: true
@@ -412,7 +457,14 @@ contents:
     application/json:
       schema:
         $ref: '#schemas/user'
-    
+  washerArray:
+    application/json:
+      schema:
+        $ref: '#schemas/washerArray'
+  washer:
+    application/json:
+      schema:
+        $ref: '#schemas/washer'
 schemas:
   userArray:
     type: array
@@ -483,11 +535,33 @@ schemas:
       advantage:
         type: integer
         example: 5
-      deletedAt:
-        type: date-time
       room:
         type: integer
         example: 401
       dormitory:
         type: integer
+        example: 1
+  washerArray:
+    type: array
+    items:
+      $ref: "#schemas/washer"
+  washer:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      status:
+        type: string
+        enum:
+          - 비었음
+          - 사용중
+      occupant:
+        type: integer
+        example: 1
+      endtime: 
+        type: date-time
+        example: 넣지 마세요 미완성임.
+      dormitory:
+        type: intege
         example: 1
