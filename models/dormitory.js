@@ -7,6 +7,10 @@ module.exports = class Dormitory extends Sequelize.Model{
                 type:Sequelize.STRING(100),
                 allowNull: false,
             },
+            story: {
+                type:Sequelize.INTEGER,
+                allowNull:false,
+            },
             dormitoryCode: {
                 type:Sequelize.STRING(10),
                 allowNull: false,

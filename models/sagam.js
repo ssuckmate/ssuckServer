@@ -18,7 +18,7 @@ module.exports = class Sagam extends Sequelize.Model{
             },
         }, {
               sequelize,
-              timestamps: true,
+              timestamps: false,
               underscored: false,
               modelName: 'Sagam',
               tableName: 'sagams',

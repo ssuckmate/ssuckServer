@@ -6,6 +6,10 @@ module.exports = class Room extends Sequelize.Model{
             roomNum:{
                 type:Sequelize.INTEGER,
                 allowNull: false,
+            },
+            floor:{
+                type:Sequelize.INTEGER,
+                allowNull: false,
             }
         },{
             sequelize,
