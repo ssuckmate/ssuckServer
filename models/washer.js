@@ -3,6 +3,13 @@ const Sequelize = require('sequelize');
 module.exports = class WashingMachine extends Sequelize.Model{
     static init(sequelize){
         return super.init({
+            status:{
+                type: Sequelize.ENUM(["비었음",'사용중'])
+            },
+            floor:{
+                type: Sequelize.INTEGER,
+                allowNull:false,
+            },
             occupant: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
@@ -13,7 +20,7 @@ module.exports = class WashingMachine extends Sequelize.Model{
             },
         },{
             sequelize,
-            timestamps: true,
+            timestamps: false,
             underscored: false,
             modelName: 'Washer',
             tableName: 'washers',
