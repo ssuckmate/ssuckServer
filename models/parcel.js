@@ -11,7 +11,7 @@ module.exports = class Parcel extends Sequelize.Model{
                 type:Sequelize.ENUM(['찾아감','보관중','분실']),
                 allowNull: false,
             },
-            taker: {
+            recipient: {
                 type:Sequelize.STRING(20),
                 allowNull: true
             }
