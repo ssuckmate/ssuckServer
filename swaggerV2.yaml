@@ -258,8 +258,48 @@ paths:
           description: "승인 대기중 유저 리스트를 받아왔습니다."
           content:
             $ref: '#contents/userArray'
-        
-                  
+  /sagam/washer/add:
+    post:
+      tags:
+        - washer
+      summary: 세탁기를 추가합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                floor:
+                  type: integer
+      responses:
+        201:
+          description: "세탁기 추가 완료."
+          content:
+            $ref: "#contents/postResponseContent"
+  /sagam/washer/delete:
+    delete:
+      tags:
+        - washer
+      summary: 세탁기를 제거합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                washerId:
+                  type: integer
+      responses:
+        200:
+          description: 세탁기 제거 완료
+          content:
+            $ref: "#contents/deleteResponseContent"
 
   /user/parcel/myParcels:
     get:
