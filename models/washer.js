@@ -30,7 +30,7 @@ module.exports = class WashingMachine extends Sequelize.Model{
     }
 
     static associate(db){
-        db.Washer.belongsTo(db.User, {foreignKey: 'dormitory', sourceKey:'id'});
+        db.Washer.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
     }
 
 }
