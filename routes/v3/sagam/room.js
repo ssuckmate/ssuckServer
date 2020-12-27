@@ -42,7 +42,19 @@ router.post('/add', hasToken,async(req, res, next) =>{
     }
 })
 
-
+router.get('/users', hasToken,async(req, res, next) =>{
+    try{
+        const users = await User.findAll({
+            where:{
+                room: req.body.roomId
+            } 
+        });
+        return res.status(200).json(users);
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+})
 router.delete('/delete', hasToken, async (req, res, next) =>{
     try{
         await Room.destroy({where:{id: req.body.roomId}});

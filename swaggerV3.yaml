@@ -207,6 +207,25 @@ paths:
           description: 방 추가 완료
           content: 
             $ref: "#contents/postResponseContent"
+  /sagam/room/users:
+    get:
+      tags:
+        - room
+      summary: 호실에 있는 유저 목록을 가져옵니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      responses:
+        200:
+          description: 호실의 유저 목록
+          content:
+            $ref: "#contents/userArray"
   /sagam/washer/add:
     post:
       tags:
