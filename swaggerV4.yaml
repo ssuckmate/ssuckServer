@@ -72,6 +72,15 @@ paths:
                 properties:
                   message:
                     type: string
+  /sagam/dormitory:
+    get:
+      tags:
+        - dormitory
+      responses: 
+        '200':
+          description: 조회 성공
+          content:
+            $ref: "#contents/dormitory"
   /sagam/dormitory/add:
     post:
       tags:
@@ -440,6 +449,10 @@ contents:
         properties:
           message:
             type: string
+  dormitory:
+    application/json:
+      schema:
+        $ref: "#schemas/user"
   parcelArray:
     application/json:
       schema:
@@ -473,6 +486,21 @@ contents:
       schema:
         $ref: '#schemas/room'
 schemas:
+  dormitory: 
+    type: object
+    properties: 
+      id:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: 한양숙사
+      story: 
+        type: integer
+        example: 3
+      dormitoryCode:
+        type: string
+        example: hanyang123
   userArray:
     type: array
     items:

@@ -8,6 +8,26 @@ const secret = process.env.JWT || '13@@4d%sf!a'
 
 const router = express.Router()
 
+router.get('/', hasToken, async (req, res, next) =>{
+    try{
+        const sagam = await Sagam.findOne({
+            where:{
+                id:req.decode.id
+            }
+        })
+        console.log(sagam);
+        const dormitory = await Dormitory.findOne({
+            where: {
+                id: sagam.dormitory,
+            }
+        })
+        return res.status(200).json(dormitory);
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+})
+
 router.post('/add', hasToken, async (req,res,next) =>{
     const {name, identifier} = req.body;
     try{
