@@ -2,7 +2,7 @@ openapi: "3.0.0"
 info: 
   version: "1.0.0"
   title: ssuckServer API
-  description: "ssuckmate server API 입니다."
+  description: "ssuckmate server API 입니다. 토큰은 헤더에 키를 'token' 으로 설정해 넣으세요"
 
 servers: 
   - url: http://localhost:3000/v2
@@ -84,8 +84,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 name: 
                   type: string
                 identifier:
@@ -111,8 +109,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 name: 
                   type: string
                 identifier:
@@ -138,8 +134,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 sender: 
                   type: string
                 recipient:
@@ -155,8 +149,6 @@ paths:
         - "sagam"
       summary: "기숙사의 전체 리스트 받아오기"
       description: "승인대기중인 놈들도 받아온다"
-      requestBody:
-        $ref: "#bodies/tokenRequestBody"
       responses:
         '200': 
           description: "기숙사의 유저 리스트를 받아왔습니다."
@@ -167,8 +159,6 @@ paths:
       tags:
         - sagam
       summary: "해당 기숙사에 가입 신청한 유저 리스트"
-      requestBody: 
-        $ref: "#bodies/tokenRequestBody"
       responses:
         200:
           description: "승인 대기중 유저 리스트를 받아왔습니다."
@@ -179,8 +169,6 @@ paths:
       tags:
         - room
       summary: 기숙사의 전체 호실
-      requestBody:
-        $ref: "#bodies/tokenRequestBody"
       responses:
         '200': 
           description: 기숙사 전체 호실 받아왔습니다.
@@ -198,8 +186,6 @@ paths:
             schema:
               type: object
               properties:
-                token: 
-                  type: string
                 floor: 
                   type: integer
       responses:
@@ -212,15 +198,6 @@ paths:
       tags:
         - room
       summary: 호실에 있는 유저 목록을 가져옵니다.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
       responses:
         200:
           description: 호실의 유저 목록
@@ -238,8 +215,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 floor:
                   type: integer
       responses:
@@ -259,8 +234,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 washerId:
                   type: integer
       responses:
@@ -272,15 +245,6 @@ paths:
     get:
       tags:
         - "user"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
       responses:
         '200':
           description: "모든 유저의 리스트입니다."
@@ -357,15 +321,6 @@ paths:
       tags:
         - "parcel"
       summary: "Load my parcels"
-      requestBody: 
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
       responses:
         '200':
           description: "Display parcel list"
@@ -383,8 +338,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 id:
                   type: integer
                 status:
@@ -406,8 +359,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 id:
                   type: integer
       responses:
@@ -427,8 +378,6 @@ paths:
             schema:
               type: object
               properties:
-                token: 
-                  type: string
                 status:
                   type: string
                   enum:
@@ -451,8 +400,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
                 floor:
                   type: integer
       responses:
@@ -461,16 +408,6 @@ paths:
           content:
             $ref: '#contents/washerArray'
           
-bodies:
-  tokenRequestBody:
-    required: true
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            token:
-              type: string
 contents:
   putResponseContent:
     application/json:
