@@ -6,9 +6,9 @@ const jsyaml = require('js-yaml');
 const fs = require('fs');
 const swaggerUI = require('swagger-ui-express');
 const swaggerV3 = fs.readFileSync('swaggerV3.yaml','utf8')
-const swaggerV2 = fs.readFileSync('swaggerV2.yaml','utf8')
+const swaggerV4 = fs.readFileSync('swaggerV4.yaml','utf8')
 const swaggerV3Doc = jsyaml.safeLoad(swaggerV3);
-const swaggerV2Doc = jsyaml.safeLoad(swaggerV2);
+const swaggerV4Doc = jsyaml.safeLoad(swaggerV4);
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -33,7 +33,7 @@ passportConfig(); // passport 사용
 const routes = require('./routes');
 
 app.use('/api-docs/v3',swaggerUI.serve,swaggerUI.setup(swaggerV3Doc));
-app.use('/api-docs/v2',swaggerUI.serve,swaggerUI.setup(swaggerV2Doc));
+app.use('/api-docs/v4',swaggerUI.serve,swaggerUI.setup(swaggerV4Doc));
 
 
 app.use('/', routes);
