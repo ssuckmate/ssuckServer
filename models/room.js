@@ -23,6 +23,7 @@ module.exports = class Room extends Sequelize.Model{
     }
     static associate(db){
         db.Room.hasMany(db.User, {foreignKey: 'room', sourceKey: 'id'});
+        db.Room.hasMany(db.Parcel, {foreignKey: 'room', sourceKey: 'id'});
         db.Room.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
     }
 }

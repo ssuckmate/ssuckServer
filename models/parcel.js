@@ -13,7 +13,7 @@ module.exports = class Parcel extends Sequelize.Model{
             },
         },{
             sequelize,
-            timestamps: true,
+            timestamps: false,
             underscored: false,
             modelName: 'Parcel',
             tableName: 'parcels',
@@ -25,6 +25,7 @@ module.exports = class Parcel extends Sequelize.Model{
     static associate(db){
         db.Parcel.belongsTo(db.User, {foreignKey: "recipient", targetKey: 'id'});
         db.Parcel.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
+        db.Parcel.belongsTo(db.Room, {foreignKey:'room', targetKey:'id'})
     }
 
 }

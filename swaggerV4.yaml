@@ -136,8 +136,18 @@ paths:
               properties:
                 sender: 
                   type: string
-                recipient:
+                status:
                   type: string
+                  enum:
+                    - 보관중
+                    - 비었음
+                    - 분실
+                recipient:
+                  type: integer
+                room:
+                  type: integer
+                dormitory:
+                  type: integer
       responses:
         '201':
           description: "New parcel is added"

@@ -8,11 +8,11 @@ router.post('/add', hasToken, async (req, res, next) =>{
     try{
         const sagam = await Sagam.findOne({where:{id: req.decode.id}})
         console.log(sagam)
-        const user = await User.findOne({where:{name: req.body.recipient}})
         await Parcel.create({
             sender: req.body.sender,
             status: '보관중',
-            recipient: user.id,
+            recipient: req.body.recipient.id,
+            room: req.body.room,
             dormitory: sagam.dormitory
         })
 
