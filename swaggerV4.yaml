@@ -212,11 +212,58 @@ paths:
           description: 방 추가 완료
           content: 
             $ref: "#contents/postResponseContent"
+  /sagam/room/updateUser:
+    put:
+      tags:
+        - room
+      summary: 유저의 room을 변경합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roomId: 
+                  type: integer
+                userId: 
+                  type: integer
+      responses:
+        200:
+          description: "성공"
+          content:
+              $ref: "#contents/putResponseContent"
+  /sagam/room/getRoomsByFloor:
+    get:
+      tags:
+        - room
+      summary: 해당 층에 있는 room 목록을 가져옵니다.
+      parameters:
+        - in : path
+          name: floor
+          schema:
+            type: integer
+          required: true
+          description: 조회하고 싶은 층수를 넣으세요.
+          
+      responses:
+        200:
+          description: 해당 층의 방 목록
+          content:
+            $ref: "#contents/roomArray"
   /sagam/room/users:
     get:
       tags:
         - room
       summary: 호실에 있는 유저 목록을 가져옵니다.
+      parameters:
+        - in : path
+          name: roomId
+          schema:
+            type: integer
+          required: true
+          description: 룸 id를 query로 보내면 유저 목록을 받습니다.
+
       responses:
         200:
           description: 호실의 유저 목록

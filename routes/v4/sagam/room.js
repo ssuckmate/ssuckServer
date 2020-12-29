@@ -42,11 +42,32 @@ router.post('/add', hasToken,async(req, res, next) =>{
     }
 })
 
+router.put('/updateUser', hasToken,async(req, res, next) =>{
+    try{
+
+        const room = await Room.findOne({where:{
+            id: req.body.roomId,
+        }})
+        const user =await User.findOne({where:{
+            id: req.body.userId,
+        }})
+        
+        user.room = room.id;
+        user.save()
+        return res.status(200).json({
+            message: "방 설정 성공!"
+        });
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+})
+
 router.get('/users', hasToken,async(req, res, next) =>{
     try{
         const users = await User.findAll({
             where:{
-                room: req.body.roomId
+                room: req.query.roomId
             } 
         });
         return res.status(200).json(users);
@@ -55,6 +76,27 @@ router.get('/users', hasToken,async(req, res, next) =>{
         return next(error);
     }
 })
+
+router.get('/getRoomsByFloor', hasToken,async(req, res, next) =>{
+    try{
+
+        const sagam = await Sagam.findOne({where:{
+            id:req.decode.id
+        }})
+        const rooms = await Room.findAll({
+            where:{
+                dormitory: sagam.dormitory,
+                floor: req.query.floor
+            } 
+        });
+        return res.status(200).json(rooms);
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+})
+
+
 router.delete('/delete', hasToken, async (req, res, next) =>{
     try{
         await Room.destroy({where:{id: req.body.roomId}});
