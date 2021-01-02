@@ -444,6 +444,8 @@ paths:
             schema:
               type: object
               properties:
+                washerId:
+                  type: integer
                 status:
                   type: string
                   enum:
