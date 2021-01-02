@@ -28,14 +28,15 @@ router.get('/floor', hasToken, async (req, res, next) =>{
 router.put('/changeStatus', hasToken, async (req, res, next) =>{
     try{
 
-        await Washer.update({
-            status : req.body.status,
-            occupant: req.decode.id
-        },{
+        const washer = await Washer.findOne({
             where:{
-                id : req.body.washerId
+                id:req.body.washerId
             }
-        })
+        });
+        washer.endTime = req.body.endtime
+        washer.occupant = req.decode.id
+        washer.status = req.body.status
+        await washer.save()
         return res.status(200).json({
             message: `정상적으로 처리되었습니다..`
         });
