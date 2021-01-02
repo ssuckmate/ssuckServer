@@ -453,9 +453,7 @@ paths:
                     - 비었음
                 endTime: 
                   type: string
-                  example: 2021-08-09 07:42:28
-                  
-                  
+                  example: 2021-08-09 07:42:28   
       responses:
         200:
           description: "상태 변경 완료"
@@ -480,7 +478,6 @@ paths:
           description: 해당 층 세탁기 다 불러옴
           content:
             $ref: '#contents/washerArray'
-          
 contents:
   putResponseContent:
     application/json:
