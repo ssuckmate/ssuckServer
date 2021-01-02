@@ -499,7 +499,7 @@ contents:
   dormitory:
     application/json:
       schema:
-        $ref: "#schemas/user"
+        $ref: "#schemas/dormitory"
   parcelArray:
     application/json:
       schema:
