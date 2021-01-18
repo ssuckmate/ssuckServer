@@ -14,7 +14,26 @@ router.get('/floor', hasToken, async (req, res, next) =>{
         const washers = await Washer.findAll({
             where: {
                 dormitory: user.dormitory,
-                floor: req.body.floor
+                floor: req.query.floor
+            }
+        })
+        return res.status(200).json(washers);
+    }catch(error){
+        console.error(error);
+        return next(error);
+    }
+})
+
+router.get('/', hasToken, async (req, res, next) =>{
+    try{
+        const user = await User.findOne({
+            where:{
+                id:req.decode.id
+            }
+        })
+        const washers = await Washer.findAll({
+            where: {
+                dormitory: user.dormitory,
             }
         })
         return res.status(200).json(washers);

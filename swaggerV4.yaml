@@ -459,23 +459,32 @@ paths:
           description: "상태 변경 완료"
           content: 
             $ref: "#contents/putResponseContent"
+  /user/washer:
+    get:
+      tags:
+        - washer
+      summary: 모든 층에 있는 세탁기 리스트 불러오기.
+      responses:
+        200:
+          description: 모든 층 세탁기 다 불러옴
+          content:
+            $ref: '#contents/washerArray'
+
   /user/washer/floor:
     get:
       tags:
         - washer
-      summary: 해당 층에 있는 세탁기 리스트 불러오기.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                floor:
-                  type: integer
+      summary: 특정 층에 있는 세탁기 리스트 불러오기.
+      parameters:
+        - in:
+          name: floor
+          schema:
+            type: integer
+          required: true
+          description: 조회하고 싶은 층수를 넣으세요.
       responses:
         200:
-          description: 해당 층 세탁기 다 불러옴
+          description: 특정 층 세탁기 다 불러옴
           content:
             $ref: '#contents/washerArray'
 contents:

@@ -7,7 +7,9 @@ const router = express.Router()
 
 router.get('/', hasToken,async(req, res, next) =>{
     try{
-
+        const sagam = await Sagam.findOne({where:{
+            id:req.query.id
+        }})
         const dormitory = await Dormitory.findOne({where:{
             id:sagam.dormitory
         }})
