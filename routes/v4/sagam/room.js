@@ -36,6 +36,7 @@ router.post('/add', hasToken,async(req, res, next) =>{
         const room = await Room.create({
             roomNum: req.body.roomNum,
             floor: req.body.floor,
+            dormitory: dormitory.id
         })
         return res.status(201).json(room);
     }catch(error){
