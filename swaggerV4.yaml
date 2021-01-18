@@ -5,11 +5,21 @@ info:
   description: "ssuckmate server API 입니다. 토큰은 헤더에 키를 'token' 으로 설정해 넣으세요"
 
 servers: 
-  - url: http://localhost:3000/v2
+  - url: http://localhost:3000/v4
     description: Local Server
-  - url: http://52.78.214.64:3000/v2
+  - url: http://3.112.201.89:3000/v4
     description: dev Server
 paths:
+  /sagam:
+    get:
+      tags:
+        - sagam
+      summary: "사감 자신의 정보"
+      responses:
+        '200': 
+          description: "사감의 정보를 받아왔습니다.."
+          content:
+            $ref: '#contents/sagam'
   /sagam/auth/join:
     post:
       tags:
@@ -310,12 +320,13 @@ paths:
   /user:
     get:
       tags:
-        - "user"
+        - user
+      summary: "유저 자신의 정보"
       responses:
-        '200':
-          description: "모든 유저의 리스트입니다."
+        '200': 
+          description: "유저의 정보를 받아왔습니다.."
           content:
-            $ref: '#/contents/userArray'
+            $ref: '#contents/user'
   /user/auth/join:
     post:
       tags:
@@ -521,6 +532,14 @@ contents:
     application/json:
         schema:
           $ref: '#schemas/parcel'
+  sagamArray:
+    application/json:
+      schema:
+        $ref: '#schemas/sagamArray'
+  sagam:
+    application/json:
+      schema:
+        $ref: '#schemas/sagam'
   userArray:
     application/json:
       schema:
@@ -597,11 +616,32 @@ schemas:
       advantage:
         type: integer
         example: 5
-      createdAt:
-        type: 
       room:
         type: integer
         example: 401
+      dormitory:
+        type: integer
+        example: 1
+  sagamArray:
+    type: array
+    items:
+      $ref: "#schemas/sagam"
+  sagam:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      email:
+        type: string
+        format: email
+        example: mail@mail.com
+      password:
+        type: string
+        example: sf23#$@$1f
+      name:
+        type: string
+        example: userName
       dormitory:
         type: integer
         example: 1
