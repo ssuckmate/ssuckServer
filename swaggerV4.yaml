@@ -469,7 +469,7 @@ paths:
         200:
           description: "상태 변경 완료"
           content: 
-            $ref: "#contents/putResponseContent"
+            $ref: "#contents/washer"
   /user/washer:
     get:
       tags:
