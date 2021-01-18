@@ -453,7 +453,7 @@ paths:
                     - 비었음
                 endTime: 
                   type: string
-                  example: 2021-08-09 07:42:28   
+                  example: "2021-08-09 07:42:28"
       responses:
         200:
           description: "상태 변경 완료"
@@ -656,7 +656,7 @@ schemas:
         example: 1
       endtime: 
         type: string
-        example: 2016-08-09 07:42:28
+        example: "2016-08-09 07:42:28"
       dormitory:
         type: intege
         example: 1
