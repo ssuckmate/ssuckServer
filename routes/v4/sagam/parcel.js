@@ -11,7 +11,7 @@ router.post('/add', hasToken, async (req, res, next) =>{
         await Parcel.create({
             sender: req.body.sender,
             status: '보관중',
-            recipient: req.body.recipient.id,
+            recipient: req.body.recipient,
             room: req.body.room,
             dormitory: sagam.dormitory
         })

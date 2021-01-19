@@ -5,7 +5,7 @@ const {hasToken} = require('../middlewares');
 
 const router = express.Router()
 
-router.post('/myParcels', hasToken, async (req, res, next) =>{
+router.get('/myParcels', hasToken, async (req, res, next) =>{
     try{
         const parcels = await Parcel.findAll({
             where: {
