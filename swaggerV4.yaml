@@ -639,13 +639,14 @@ paths:
       summary: 본인 방이 몇 층에 있는지 나타냅니다.
       responses:
         200:
-          application/json:
-            schema:
-              type: object
-              properties:
-                floor:
-                  type: integer
-                  example: 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  floor:
+                    type: integer
+                    example: 1
   /user/washer:
     get:
       tags:
