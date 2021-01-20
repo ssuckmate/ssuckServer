@@ -516,6 +516,16 @@ paths:
           description: "상태 변경 완료"
           content: 
             $ref: "#contents/dryer"
+  /user/notice/:
+    get:
+      tags:
+        - notice
+      summary: "공지사항 받아오기"
+      responses:
+        '200' :
+          description: "공지사항 목록을 받아옵니다."
+          content:
+            $ref: "#contents/noticeArray"
   /user/parcel/myParcels:
     get:
       tags:
@@ -652,6 +662,14 @@ contents:
     application/json:
       schema:
         $ref: "#schemas/dryer"
+  noticeArray:
+    application/json:
+      schema:
+        $ref: '#schemas/noticeArray'
+  notice:
+    application/json:
+      schema:
+        $ref: '#schemas/notice'
   parcelArray:
     application/json:
       schema:
@@ -732,6 +750,25 @@ schemas:
       dormitory:
         type: intege
         example: 1
+  
+  notice:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      contents:
+        type: string
+        example: 시끄러 떠들지마
+      sagam:
+        type: integer
+        example: 1
+  
+  noticeArray:
+    type: array
+    items:
+      $ref: '#schemas/notice'
+
   userArray:
     type: array
     items:
