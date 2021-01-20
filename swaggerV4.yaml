@@ -317,6 +317,44 @@ paths:
           description: 세탁기 제거 완료
           content:
             $ref: "#contents/deleteResponseContent"
+    /sagam/dryer/add:
+    post:
+      tags:
+        - dryer
+      summary: 건조기 추가합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                floor:
+                  type: integer
+      responses:
+        201:
+          description: "세탁기 추가 완료."
+          content:
+            $ref: "#contents/postResponseContent"
+  /sagam/dryer/delete:
+    delete:
+      tags:
+        - dryer
+      summary: 건조기 제거합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                washerId:
+                  type: integer
+      responses:
+        200:
+          description: 건조기 제거 완료
+          content:
+            $ref: "#contents/deleteResponseContent"
   /user:
     get:
       tags:
@@ -393,6 +431,61 @@ paths:
                 properties:
                   message:
                     type: string
+  user/washer:
+    get:
+      tags:
+        - dryer
+      summary: 모든 층에 있는 건조기 리스트 불러오기.
+      responses:
+        200:
+          description: 모든 층 건조기 다 불러옴
+          content:
+            $ref: '#contents/dryerArray'
+
+  /user/dryer/floor:
+    get:
+      tags:
+        - dryer
+      summary: 특정 층에 있는 건조기 리스트 불러오기.
+      parameters:
+        - in:
+          name: floor
+          schema:
+            type: integer
+          required: true
+          description: 조회하고 싶은 층수를 넣으세요.
+      responses:
+        200:
+          description: 특정 층 건조기 다 불러옴
+          content:
+            $ref: '#contents/dryerArray'
+  /user/dryer/changeStatus:
+    put:
+      tags:
+        - 건조기
+      summary: 상태를 사용중, 비었음 중 하나로 변경하고 occupant 업데이트
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                washerId:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - 사용중
+                    - 비었음
+                endTime: 
+                  type: string
+                  example: "2021-08-09 07:42:28"
+      responses:
+        200:
+          description: "상태 변경 완료"
+          content: 
+            $ref: "#contents/dryer"
   /user/parcel/myParcels:
     get:
       tags:
@@ -443,33 +536,7 @@ paths:
           description: "Parcel 삭제 완료"
           content:
             $ref: '#contents/deleteResponseContent'
-  /user/washer/changeStatus:
-    put:
-      tags:
-        - washer
-      summary: 상태를 사용중, 비었음 중 하나로 변경하고 occupant 업데이트
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                washerId:
-                  type: integer
-                status:
-                  type: string
-                  enum:
-                    - 사용중
-                    - 비었음
-                endTime: 
-                  type: string
-                  example: "2021-08-09 07:42:28"
-      responses:
-        200:
-          description: "상태 변경 완료"
-          content: 
-            $ref: "#contents/washer"
+ 
   /user/washer:
     get:
       tags:
@@ -498,6 +565,33 @@ paths:
           description: 특정 층 세탁기 다 불러옴
           content:
             $ref: '#contents/washerArray'
+  /user/washer/changeStatus:
+    put:
+      tags:
+        - washer
+      summary: 상태를 사용중, 비었음 중 하나로 변경하고 occupant 업데이트
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                washerId:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - 사용중
+                    - 비었음
+                endTime: 
+                  type: string
+                  example: "2021-08-09 07:42:28"
+      responses:
+        200:
+          description: "상태 변경 완료"
+          content: 
+            $ref: "#contents/washer"
 contents:
   putResponseContent:
     application/json:
@@ -524,6 +618,10 @@ contents:
     application/json:
       schema:
         $ref: "#schemas/dormitory"
+  dryer:
+    application/json:
+      schema:
+        $ref: "#schemas/dryer"
   parcelArray:
     application/json:
       schema:
@@ -580,6 +678,30 @@ schemas:
       dormitoryCode:
         type: string
         example: hanyang123
+dryerArray:
+    type: array
+    items:
+      $ref: "#schemas/dryer"
+  dryer:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      status:
+        type: string
+        enum:
+          - 비었음
+          - 사용중
+      occupant:
+        type: integer
+        example: 1
+      endtime: 
+        type: string
+        example: "2016-08-09 07:42:28"
+      dormitory:
+        type: intege
+        example: 1
   userArray:
     type: array
     items:

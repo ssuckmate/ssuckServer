@@ -3,6 +3,13 @@ const Sequelize = require('sequelize');
 module.exports = class DryingMachine extends Sequelize.Model{
     static init(sequelize){
         return super.init({
+            status:{
+                type: Sequelize.ENUM(["비었음",'사용중'])
+            },
+            floor:{
+                type: Sequelize.INTEGER,
+                allowNull:false,
+            },
             occupant: {
                 type: Sequelize.INTEGER,
                 allowNull: true,
@@ -13,17 +20,17 @@ module.exports = class DryingMachine extends Sequelize.Model{
             },
         },{
             sequelize,
-            timestamps: true,
+            timestamps: false,
             underscored: false,
             modelName: 'Dryer',
-            tableName: 'dryers',
+            tableName: 'dryerss',
             charset: 'utf8',
             collate: 'utf8_general_ci',
           })
     }
-
     static associate(db){
-        db.Dryer.belongsTo(db.User, {foreignKey: 'dormitory', sourceKey:'id'});
+        db.Dryer.belongsTo(db.Dormitory, {foreignKey: 'dormitory', sourceKey:'id'});
+        db.Dryer.belongsTo(db.User, {foreignKey: 'occupant', sourceKey:'id'});
     }
 
 }
