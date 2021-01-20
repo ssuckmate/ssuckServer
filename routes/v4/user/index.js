@@ -6,9 +6,12 @@ const router = express.Router();
 const auth = require('./auth');
 const parcel = require('./parcel');
 const washer = require('./washer');
+const notice = require('./notice');
+
 router.use('/auth', auth);
 router.use('/parcel', parcel);
 router.use('/washer', washer);
+router.use('/notice',notice)
 
 router.get('/',hasToken ,async (req, res, next) => {
    

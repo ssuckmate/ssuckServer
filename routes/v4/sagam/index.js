@@ -8,6 +8,7 @@ const user = require('./user');
 const washer = require('./washer')
 const dryer = require('./dryer')
 const room = require('./room');
+const notice = require('./notice');
 const { hasToken } = require('../middlewares');
 const { Sagam } = require('../../../models');
 
@@ -19,6 +20,7 @@ router.use('/user', user);
 router.use('/washer', washer);
 router.use('/dryer', dryer);
 router.use('/room',room)
+router.use('/notice',notice)
 
 router.get('/',hasToken ,async (req, res, next) => {
    
