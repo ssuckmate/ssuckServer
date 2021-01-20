@@ -102,7 +102,7 @@ router.get('/getRoomsByFloor', hasToken,async(req, res, next) =>{
 
 router.delete('/delete', hasToken, async (req, res, next) =>{
     try{
-        await Room.destroy({where:{id: req.body.roomId}});
+        await Room.destroy({where:{id: req.query.room}});
         return res.status(200).json({
             message: `방이 삭제되었습니다..`
         });

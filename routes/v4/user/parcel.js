@@ -43,9 +43,9 @@ router.put('/changeStatus', hasToken, async(req, res, next) =>{
 
 router.delete('/delete', hasToken, async(req, res, next) =>{
     try{
-        const user = await User.findOne({where:{id: req.decode.id}})
+        
         await Parcel.destroy({
-            where: { id: req.body.id }
+            where: { id: req.query.id }
         })
         return res.status(200).json({
             message: "정상적으로 처리되었습니다."

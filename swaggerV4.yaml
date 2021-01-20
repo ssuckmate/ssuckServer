@@ -301,15 +301,13 @@ paths:
       tags:
         - room
       summary: 방 삭제
-      requestBody:
-        required: true
-        content: 
-          application/json:
-            schema:
-              type: object
-              properties:
-                floor:
-                  type: integer
+      parameters:
+        - in: path
+          name: room
+          schema:
+            type: integer
+          required: true
+          description: 삭제할 방 id
       responses:
         200:
           description: "방 삭제 완료."
@@ -339,15 +337,13 @@ paths:
       tags:
         - washer
       summary: 세탁기를 제거합니다.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                washerId:
-                  type: integer
+      parameters:
+        - in: path
+          name: washer
+          schema:
+            type: integer
+          required: true
+          description: 삭제할 세탁기 id
       responses:
         200:
           description: 세탁기 제거 완료
@@ -377,15 +373,13 @@ paths:
       tags:
         - dryer
       summary: 건조기 제거합니다.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                washerId:
-                  type: integer
+      parameters:
+        - in: path
+          name: dryer
+          schema:
+            type: integer
+          required: true
+          description: 삭제할 건조기 id
       responses:
         200:
           description: 건조기 제거 완료
@@ -626,15 +620,13 @@ paths:
       tags:
         - "parcel"
       summary: "delete parcel"
-      requestBody: 
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: integer
+      parameters:
+        - in: path
+          name: parcel
+          schema:
+            type: integer
+          required: true
+          description: 삭제할 택배 id
       responses:
         '201':
           description: "Parcel 삭제 완료"
