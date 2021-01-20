@@ -172,7 +172,7 @@ paths:
           description: "New parcel is added"
           content:
             $ref: '#contents/postResponseContent'
-  /sagam/user:
+  /sagam/user/list:
     get:
       tags:
         - "sagam"

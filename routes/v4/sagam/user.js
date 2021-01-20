@@ -5,7 +5,7 @@ const {hasToken} = require('../middlewares');
 const router = express.Router()
 
 
-router.get('/', hasToken,async(req, res, next) =>{
+router.get('/list', hasToken,async(req, res, next) =>{
     try{
 
         const sagam = await Sagam.findOne({where:{
