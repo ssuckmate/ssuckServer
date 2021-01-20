@@ -45,7 +45,7 @@ router.delete('/delete', hasToken, async(req, res, next) =>{
     try{
         
         await Parcel.destroy({
-            where: { id: req.query.id }
+            where: { id: req.query.parcel }
         })
         return res.status(200).json({
             message: "정상적으로 처리되었습니다."

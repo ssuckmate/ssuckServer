@@ -24,7 +24,7 @@ router.post('/add', hasToken, async (req, res, next) =>{
 
 router.delete('/delete', hasToken, async (req, res, next) =>{
     try{
-        await Washer.destroy({where:{id: req.body.washerId}});
+        await Washer.destroy({where:{id: req.query.washer}});
         return res.status(200).json({
             message: `세탁기가 삭제되었습니다.`
         });
