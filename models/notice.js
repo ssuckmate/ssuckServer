@@ -18,8 +18,8 @@ module.exports = class Notice extends Sequelize.Model{
     }
 
     static associate(db){
-        db.Parcel.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
-        db.Parcel.belongsTo(db.Sagam, {foreignKey:'sagam', targetKey:'id'})
+        db.Notice.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
+        db.Notice.belongsTo(db.Sagam, {foreignKey:'sagam', targetKey:'id'})
     }
 
 }

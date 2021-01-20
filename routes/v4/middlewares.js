@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 
 exports.hasToken = (req,res,next) => {
     try{
-        console.log(req.headers);
         req.decode = jwt.verify(req.headers.token, process.env.JWT || '13@@4d%sf!a');
         return next();
     }catch(error){
