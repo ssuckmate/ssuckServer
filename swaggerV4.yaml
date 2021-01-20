@@ -279,6 +279,25 @@ paths:
           description: 호실의 유저 목록
           content:
             $ref: "#contents/userArray"
+  /sagam/room/delete:
+    delete: 
+      tags:
+        - room
+      summary: 방 삭제
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                floor:
+                  type: integer
+      responses:
+        200:
+          description: "방 삭제 완료."
+          content:
+            $ref: "#contents/deleteResponseContent"
   /sagam/washer/add:
     post:
       tags:
