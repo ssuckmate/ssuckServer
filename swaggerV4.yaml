@@ -526,7 +526,16 @@ paths:
           description: 모든 층 건조기 다 불러옴
           content:
             $ref: '#contents/dryerArray'
-
+  /user/dormitory:
+    get:
+      tags:
+        - dormitory
+      summary: 유저의 기숙사 정보를 불러옵니다.
+      responses:
+        200:
+          description: 기숙사 정보
+          content:
+            $ref: '#contents/dormitory'
   /user/dryer/floor:
     get:
       tags:
