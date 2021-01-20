@@ -177,6 +177,14 @@ paths:
       tags:
         - "sagam"
       summary: "유저의 id를 넘기고 정보를 받아옴"
+      parameters:
+        - in:
+          name: user
+            schema:
+              type: integer
+            required: true
+            description: 유저 id를 넘기세요
+            
       responses:
         '200': 
           description: "유저 정보를 받아옴."
