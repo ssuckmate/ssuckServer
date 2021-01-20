@@ -678,7 +678,7 @@ schemas:
       dormitoryCode:
         type: string
         example: hanyang123
-dryerArray:
+  dryerArray:
     type: array
     items:
       $ref: "#schemas/dryer"
