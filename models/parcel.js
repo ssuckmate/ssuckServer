@@ -11,6 +11,10 @@ module.exports = class Parcel extends Sequelize.Model{
                 type:Sequelize.ENUM(['찾아감','보관중','분실']),
                 allowNull: false,
             },
+            createdAt: {
+                type:Sequelize.DATE,
+                defaultValue: Sequelize.NOW
+            }
         },{
             sequelize,
             timestamps: false,

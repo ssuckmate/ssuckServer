@@ -163,8 +163,6 @@ paths:
                     - 분실
                 recipient:
                   type: integer
-                room:
-                  type: integer
                 dormitory:
                   type: integer
       responses:
@@ -935,6 +933,9 @@ schemas:
       dormitory:
         type: integer
         example: 1
+      createdAt:
+        type: string
+        example: "2021-01-20T07:53:25.000Z"
   washerArray:
     type: array
     items:
