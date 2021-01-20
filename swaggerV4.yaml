@@ -385,6 +385,55 @@ paths:
           description: 건조기 제거 완료
           content:
             $ref: "#contents/deleteResponseContent"
+  /sagam/notice/:
+    get:
+      tags:
+        - notice
+      summary: "공지사항 받아오기"
+      responses:
+        '200' :
+          description: "공지사항 목록을 받아옵니다."
+          content:
+            $ref: "#contents/noticeArray"
+  /sagam/notice/add:
+    post:
+      tags:
+        - notice
+      summary: "공지사항 작성"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contents:
+                  type: string
+      responses:
+        '200' :
+          description: "공지를 추가했습니다."
+          content:
+            $ref: "#contents/postResponseContent"
+  /sagam/notice/delete:
+    delete:
+      tags:
+        - notice
+      summary: "공지사항 삭제"
+      parameters:
+        - in:
+          notice:
+          schema:
+            type:
+              integer
+          required: true
+          description: 삭제할 공지사항 id를 넣으세요.
+      responses:
+        '200' :
+          description: "공지를 삭제했습니다.."
+          content:
+            $ref: "#contents/deleteResponseContent"
+
+            /user/dryer/floor:
   /user:
     get:
       tags:
