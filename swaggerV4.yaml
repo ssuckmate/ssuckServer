@@ -172,6 +172,17 @@ paths:
           description: "New parcel is added"
           content:
             $ref: '#contents/postResponseContent'
+  /sagam/user/useInfo:
+    get:
+      tags:
+        - "sagam"
+      summary: "유저의 id를 넘기고 정보를 받아옴"
+      responses:
+        '200': 
+          description: "유저 정보를 받아옴."
+          content:
+            $ref: '#contents/user'
+  
   /sagam/user/list:
     get:
       tags:
