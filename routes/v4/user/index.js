@@ -8,11 +8,13 @@ const parcel = require('./parcel');
 const washer = require('./washer');
 const notice = require('./notice');
 const dormiotry = require('./dormitory');
+const room = require('./room');
 router.use('/auth', auth);
 router.use('/parcel', parcel);
 router.use('/washer', washer);
 router.use('/notice',notice)
 router.use('/dormitory',dormiotry)
+router.use('/room',room)
 router.get('/',hasToken ,async (req, res, next) => {
    
     try{
