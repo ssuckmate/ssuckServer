@@ -242,16 +242,13 @@ paths:
       tags:
         - point
       summary: 상/벌점 점수를 삭제합니다.
-      requestBody:
-        required: true
-        description: 삭제하고 싶은 포인트의 id를 넣으세요.
-        content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              point:
-                type: integer
+      parameters:
+        - in: path
+          name: point
+          schema: 
+            type: integer
+          required: true
+          description: 삭제할 포인트의 id를 넣으세요.
       responses:
         200:
           description: 상/벌점 삭제 완료
