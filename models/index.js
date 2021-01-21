@@ -7,7 +7,7 @@ const Sagam = require('./sagam');
 const Dryer = require('./dryer')
 const Washer = require('./washer')
 const Notice = require('./notice');
-
+const Point = require('./point')
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -25,6 +25,7 @@ db.Sagam = Sagam;
 db.Dryer = Dryer;
 db.Washer = Washer;
 db.Notice = Notice;
+db.Point = Point;
 
 
 User.init(sequelize);
@@ -35,7 +36,7 @@ Sagam.init(sequelize);
 Dryer.init(sequelize);
 Washer.init(sequelize);
 Notice.init(sequelize);
-
+Point.init(sequelize)
 
 User.associate(db);
 Parcel.associate(db);
@@ -45,5 +46,6 @@ Sagam.associate(db);
 Dryer.associate(db);
 Washer.associate(db);
 Notice.associate(db);
+Point.associate(db);
 
 module.exports = db;

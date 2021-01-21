@@ -170,6 +170,93 @@ paths:
           description: "New parcel is added"
           content:
             $ref: '#contents/postResponseContent'
+  /sagam/point/add:
+    post:
+      tags:
+        - point
+      summary: Add point
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: integer
+                amount:
+                  type: integer
+                type:
+                  type: string
+                  enum:
+                    - 상점
+                    - 벌점
+                reason:
+                  type: string
+      responses:
+        '201':
+          description: New Point is added
+          content:
+            $ref: '#contents/postResponseContent'
+  /sagam/point:
+    get: 
+      tags:
+        - point
+      summary: get points of dormitory
+      parameters:
+        - in: path
+          name: point
+          schema:
+            type: integer
+          required: true
+          description: point의 id를 넘기세요
+      responses:
+        200:
+          description: 기숙사의 상/벌점 정보를 받아옴
+          content:
+            $ref: '#contents/pointArray'
+  /sagam/point/updateAmount:
+    put: 
+      tags:
+        - point
+      summary: 상/벌점 점수를 수정합니다.
+      requestBody:
+        required: true
+        description: 포인트의 id와 수정하고싶은 점수를 넣으세요
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                point:
+                  type: integer
+                amount:
+                  type: integer
+      responses:
+        200:
+          description: 상/벌점 수정 완료
+          content:
+            $ref: '#contents/putResponseContent'      
+  /sagam/point/delete:
+    delete:
+      tags:
+        - point
+      summary: 상/벌점 점수를 삭제합니다.
+      requestBody:
+        required: true
+        description: 삭제하고 싶은 포인트의 id를 넣으세요.
+        content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              point:
+                type: integer
+      responses:
+        200:
+          description: 상/벌점 삭제 완료
+          contents:
+            $ref: '#contents/deleteResponseContent'
   /sagam/user/userInfo:
     get:
       tags:
@@ -630,6 +717,15 @@ paths:
           description: "Parcel 삭제 완료"
           content:
             $ref: '#contents/deleteResponseContent'
+  /user/point:
+    get:
+      tags:
+        - point
+      summary: 자신의 상벌점을 조회합니다.
+      responses:
+        200:
+          content:
+            $ref: '#contents/pointArray'
   /user/room/floor:
     get:
       tags:
@@ -744,8 +840,16 @@ contents:
         $ref: '#schemas/parcelArray'
   parcel: 
     application/json:
-        schema:
-          $ref: '#schemas/parcel'
+      schema:
+        $ref: '#schemas/parcel'
+  pointArray:
+    application/json:
+      schema:
+        $ref: '#schemas/pointArray'
+  point:
+    application/json:
+      schema:
+        $ref: '#schemas/point'
   sagamArray:
     application/json:
       schema:
@@ -931,6 +1035,33 @@ schemas:
         type: integer
         example: 401
       dormitory:
+        type: integer
+        example: 1
+      createdAt:
+        type: string
+        example: "2021-01-20T07:53:25.000Z"
+  pointArray:
+    type: array
+    items:
+      $ref: "#schemas/point"
+  point:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      type:
+        type: string
+        enum:
+          - 상점
+          - 벌점
+      amount:
+        type: integer
+        example: 5
+      reason:
+        type: string
+        example: 깔끔하게 잘 지냄
+      user:
         type: integer
         example: 1
       createdAt:

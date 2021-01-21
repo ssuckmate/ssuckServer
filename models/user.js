@@ -56,5 +56,6 @@ module.exports = class User extends Sequelize.Model{
         db.User.belongsTo(db.Dormitory, {foreignKey: 'dormitory', targetKey:'id'});
         db.User.belongsTo(db.Room, {foreignKey: 'room', targetKey: 'id'});
         db.User.hasMany(db.Parcel, {foreignKey:'recipient', sourceKey:'id'});
+        db.User.hasMany(db.Point,{foreignKey:'user',sourceKey:'id'})
     }
 }
