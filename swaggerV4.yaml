@@ -203,13 +203,6 @@ paths:
       tags:
         - point
       summary: get points of dormitory
-      parameters:
-        - in: path
-          name: point
-          schema:
-            type: integer
-          required: true
-          description: point의 id를 넘기세요
       responses:
         200:
           description: 기숙사의 상/벌점 정보를 받아옴
